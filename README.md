@@ -42,8 +42,8 @@ spec:
           fieldRef:
             fieldPath: spec.nodeName
     args:
-      - $(NODE)
-      - $(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      - --node=$(NODE)
+      - --tag=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
 ```
 
 Talos Node Updater needs a service account that can access the Talos API and read `Node` resources.
