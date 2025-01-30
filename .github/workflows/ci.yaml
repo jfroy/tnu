@@ -31,6 +31,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
+        env:
+          DOCKER_METADATA_ANNOTATIONS_LEVELS: index
 
       - id: build-push
         uses: docker/build-push-action@v6
