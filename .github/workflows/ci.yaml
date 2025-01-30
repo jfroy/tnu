@@ -35,6 +35,7 @@ jobs:
       - id: build-push
         uses: docker/build-push-action@v6
         with:
+          annotations: ${{ steps.meta.outputs.annotations }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           context: .
