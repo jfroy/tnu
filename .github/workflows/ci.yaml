@@ -34,6 +34,8 @@ jobs:
       - id: build-push
         uses: docker/build-push-action@v6
         with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           context: .
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name == 'release' || github.ref == 'refs/heads/main' }}
