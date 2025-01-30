@@ -44,6 +44,7 @@ spec:
     args:
       - --node=$(NODE)
       - --tag=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      # - --powercycle # Optional
 ```
 
 Talos Node Updater needs a service account that can access the Talos API and read `Node` resources.
