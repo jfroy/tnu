@@ -10,12 +10,13 @@ on:
       - published
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
     permissions:
+      attestations: write
       contents: read
-      packages: write
       id-token: write
+      packages: write
 
     steps:
       - uses: actions/checkout@v4
