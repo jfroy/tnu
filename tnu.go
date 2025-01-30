@@ -25,13 +25,13 @@ func main() {
 	var (
 		nodeName   string
 		imageTag   string
-		rebootMode string
+		powercycle bool
 	)
 	flag.StringVar(&nodeName, "node", "", "The name of the node to upgrade (required).")
 	flag.StringVar(&imageTag, "tag", "", "The image tag to upgrade to (required).")
-	flag.StringVar(&rebootMode, "reboot-mode", "default", "Select the reboot mode during upgrade (valid values are: default, powercycle)")
+	flag.BoolVar(&powercycle, "powercycle", false, "If set, the machine will reboot using powercycle instead of kexec.")
 	flag.Usage = func() {
-		log.Printf("usage: tnu --node <node> --tag <tag> [--reboot-mode <mode>]\n%s", flag.CommandLine.FlagUsages())
+		log.Printf("usage: tnu --node <node> --tag <tag> [--powercycle]\n%s", flag.CommandLine.FlagUsages())
 	}
 	flag.Parse()
 
@@ -39,9 +39,9 @@ func main() {
 		log.Fatalf("missing required flags: --node and --tag are required\n%s", flag.CommandLine.FlagUsages())
 	}
 
-	rebootModeType, err := parseRebootMode(rebootMode)
-	if err != nil {
-		log.Fatalf("invalid reboot mode: %s\n%s", rebootMode, err)
+	rebootMode := machineapi.UpgradeRequest_DEFAULT
+	if powercycle {
+		rebootMode = machineapi.UpgradeRequest_POWERCYCLE
 	}
 
 	ctx := client.WithNode(context.Background(), nodeName)
@@ -101,7 +101,7 @@ func main() {
 		client.WithUpgradeImage(ntref.String()),
 		client.WithUpgradePreserve(true),
 		client.WithUpgradeStage(true),
-		client.WithUpgradeRebootMode(rebootModeType),
+		client.WithUpgradeRebootMode(rebootMode),
 	)
 	if err != nil {
 		panic(err)
@@ -128,15 +128,4 @@ func getSchematicAnnotation(ctx context.Context, nodename string) string {
 		panic("extensions.talos.dev/schematic annotation not found")
 	}
 	return v
-}
-
-func parseRebootMode(mode string) (machineapi.UpgradeRequest_RebootMode, error) {
-	switch mode {
-	case "default":
-		return machineapi.UpgradeRequest_DEFAULT, nil
-	case "powercycle":
-		return machineapi.UpgradeRequest_POWERCYCLE, nil
-	default:
-		return 0, fmt.Errorf("valid values are 'default' or 'powercycle'")
-	}
 }
