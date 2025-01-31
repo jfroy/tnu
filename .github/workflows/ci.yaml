@@ -31,6 +31,11 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}},enable=${{ !contains(github.ref, '-') }}
+            type=raw,value=latest,enable=${{ !contains(github.ref, '-') && github.event_name == 'release' }}
         env:
           DOCKER_METADATA_ANNOTATIONS_LEVELS: index
 
@@ -42,11 +47,11 @@ jobs:
           cache-to: type=gha,mode=max
           context: .
           platforms: linux/amd64,linux/arm64
-          push: ${{ github.event_name == 'release' || github.ref == 'refs/heads/main' }}
+          push: ${{ github.event_name == 'release' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - if: ${{ github.event_name == 'release' || github.ref == 'refs/heads/main' }}
+      - if: ${{ github.event_name == 'release' }}
         uses: actions/attest-build-provenance@v2
         with:
           subject-name: ghcr.io/${{ github.repository }}
