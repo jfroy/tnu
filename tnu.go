@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"strings"
-	"time"
 
 	machineapi "github.com/siderolabs/talos/pkg/machinery/api/machine"
 	"github.com/siderolabs/talos/pkg/machinery/client"
@@ -22,24 +21,18 @@ import (
 )
 
 type TalosUpdater struct {
-	nodeAddr   string
 	nodeName   string
 	imageTag   string
 	powercycle bool
 	client     *client.Client
 }
 
-func NewTalosUpdater(nodeAddr, imageTag string, powercycle bool) (*TalosUpdater, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
-	defer cancel()
-
-	c, err := client.New(client.WithNode(ctx, nodeAddr), client.WithDefaultConfig())
+func NewTalosUpdater(ctx context.Context, imageTag string, powercycle bool) (*TalosUpdater, error) {
+	c, err := client.New(ctx, client.WithDefaultConfig())
 	if err != nil {
 		return nil, fmt.Errorf("failed to create Talos client: %w", err)
 	}
-
 	return &TalosUpdater{
-		nodeAddr:   nodeAddr,
 		imageTag:   imageTag,
 		powercycle: powercycle,
 		client:     c,
@@ -183,8 +176,8 @@ func main() {
 		log.Fatalf("missing required flags: --node and --tag are required\n%s", flag.CommandLine.FlagUsages())
 	}
 
-	ctx := context.Background()
-	updater, err := NewTalosUpdater(nodeAddr, imageTag, powercycle)
+	ctx := client.WithNode(context.Background(), nodeAddr)
+	updater, err := NewTalosUpdater(ctx, imageTag, powercycle)
 	if err != nil {
 		log.Fatalf("failed to initialize updater: %v", err)
 	}
