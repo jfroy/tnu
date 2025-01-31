@@ -113,7 +113,7 @@ func (tu *TalosUpdater) Update(ctx context.Context) (bool, error) {
 		return false, fmt.Errorf("failed to fetch version: %w", err)
 	}
 	version := vresp.Messages[0].GetVersion()
-	log.Printf("talos version: \n%+v", version)
+	log.Printf("talos version: %v", version)
 
 	if version.GetTag() == tu.imageTag && nodeSchematic == mcSchematic {
 		log.Printf("node is up-to-date (schematic: %s, tag: %s)", nodeSchematic, version.GetTag())
@@ -130,7 +130,7 @@ func (tu *TalosUpdater) Update(ctx context.Context) (bool, error) {
 		rebootMode = machineapi.UpgradeRequest_POWERCYCLE
 	}
 
-	log.Printf("updating %s to %s", tu.nodeName, updateImage)
+	log.Printf("updating %s to %v", tu.nodeName, updateImage)
 	uresp, err := tu.client.UpgradeWithOptions(ctx,
 		client.WithUpgradeImage(updateImage.String()),
 		client.WithUpgradePreserve(true),
@@ -141,7 +141,7 @@ func (tu *TalosUpdater) Update(ctx context.Context) (bool, error) {
 		return false, fmt.Errorf("update failed: %w", err)
 	}
 
-	log.Printf("update started: %s\n", uresp.GetMessages()[0].String())
+	log.Printf("update started: %s", uresp.GetMessages()[0].String())
 	return true, nil
 }
 
