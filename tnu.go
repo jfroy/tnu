@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	machineapi "github.com/siderolabs/talos/pkg/machinery/api/machine"
@@ -95,36 +96,40 @@ func (tu *TalosUpdater) Update(ctx context.Context) (bool, error) {
 		return false, fmt.Errorf("failed to fetch nodename resource: %w", err)
 	}
 	tu.nodeName = nn
+	log.Printf("looking at node %s", tu.nodeName)
 
 	mc, err := tu.fetchMachineConfig(ctx)
 	if err != nil {
 		return false, fmt.Errorf("failed to fetch machine config: %w", err)
 	}
 
-	image := mc.Config().Machine().Install().Image()
-	ntref, err := parseReference(image)
+	mcImage := mc.Config().Machine().Install().Image()
+	log.Printf("machineconfig install image: %s", mcImage)
+	mcImageNTR, err := parseReference(mcImage)
 	if err != nil {
-		return false, fmt.Errorf("failed to parse reference: %w", err)
+		return false, fmt.Errorf("failed to parse machineconfig install image: %w", err)
+	}
+	mcSchematic := mcImageNTR.Name()[strings.LastIndex(mcImageNTR.Name(), "/")+1:]
+	nodeSchematic, err := tu.getSchematicAnnotation(ctx)
+	if err != nil {
+		return false, fmt.Errorf("failed to get schematic annotation: %w", err)
 	}
 
 	vresp, err := tu.client.Version(ctx)
 	if err != nil {
 		return false, fmt.Errorf("failed to fetch version: %w", err)
 	}
+	version := vresp.Messages[0].GetVersion()
+	log.Printf("talos version: \n%+v", version)
 
-	nodeSchematic, err := tu.getSchematicAnnotation(ctx)
-	if err != nil {
-		return false, fmt.Errorf("failed to get schematic annotation: %w", err)
-	}
-
-	if vresp.Messages[0].GetVersion().GetTag() == tu.imageTag && ntref.Name() == nodeSchematic {
-		log.Printf("node is up-to-date (schematic: %s, tag: %s)", ntref.Name(), tu.imageTag)
+	if version.GetTag() == tu.imageTag && nodeSchematic == mcSchematic {
+		log.Printf("node is up-to-date (schematic: %s, tag: %s)", nodeSchematic, version.GetTag())
 		return false, nil
 	}
 
-	ntref, err = reference.WithTag(ntref, tu.imageTag)
+	updateImage, err := reference.WithTag(mcImageNTR, tu.imageTag)
 	if err != nil {
-		return false, fmt.Errorf("failed to update reference tag: %w", err)
+		return false, fmt.Errorf("failed to update image tag: %w", err)
 	}
 
 	rebootMode := machineapi.UpgradeRequest_DEFAULT
@@ -132,15 +137,15 @@ func (tu *TalosUpdater) Update(ctx context.Context) (bool, error) {
 		rebootMode = machineapi.UpgradeRequest_POWERCYCLE
 	}
 
-	log.Printf("updating %s to %s", tu.nodeName, ntref)
+	log.Printf("updating %s to %s", tu.nodeName, updateImage)
 	uresp, err := tu.client.UpgradeWithOptions(ctx,
-		client.WithUpgradeImage(ntref.String()),
+		client.WithUpgradeImage(updateImage.String()),
 		client.WithUpgradePreserve(true),
 		client.WithUpgradeStage(true),
 		client.WithUpgradeRebootMode(rebootMode),
 	)
 	if err != nil {
-		return false, fmt.Errorf("upgrade failed: %w", err)
+		return false, fmt.Errorf("update failed: %w", err)
 	}
 
 	log.Printf("update started: %s\n", uresp.GetMessages()[0].String())
@@ -166,8 +171,8 @@ func main() {
 		powercycle bool
 	)
 
-	flag.StringVar(&nodeAddr, "node", "", "The address of the node to upgrade (required).")
-	flag.StringVar(&imageTag, "tag", "", "The image tag to upgrade to (required).")
+	flag.StringVar(&nodeAddr, "node", "", "The address of the node to update (required).")
+	flag.StringVar(&imageTag, "tag", "", "The image tag to update to (required).")
 	flag.BoolVar(&powercycle, "powercycle", false, "If set, the machine will reboot using powercycle instead of kexec.")
 	flag.Usage = func() {
 		log.Printf("usage: tnu --node <node> --tag <tag> [--powercycle]\n%s", flag.CommandLine.FlagUsages())
