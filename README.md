@@ -1,17 +1,24 @@
 # Talos Node Updater (tnu)
 
 This is a Go program designed to run on a Talos node. It will determine if the node requires an
-upgrade based on the node's current Talos version and schematic, the desired version (passed as an
-argument), and the schematic embedded in the node MachineConfig's install image URL. If an upgrade
+update based on the node's current Talos version and schematic, the desired version (passed as an
+argument), and the schematic embedded in the node MachineConfig's install image URL. If an update
 is required, it will issue an upgrade API call to the node.
+
+## Requirements
+
+Talos Node Updater will only work on nodes that have an Image Factory install image in their machine
+config (see [`Config.machine.install`](https://www.talos.dev/v1.9/reference/configuration/v1alpha1/config/#Config.machine.install), [Boot Assets](https://www.talos.dev/v1.9/talos-guides/install/boot-assets/#example-bare-metal-with-image-factory),
+and [Image Factory](https://www.talos.dev/v1.9/learn-more/image-factory/)).
+
+## System Upgrade Controller
 
 Talos Node Updater is easy to integrate with Rancher's
 [System Upgrade Controller](https://github.com/rancher/system-upgrade-controller). Below is an
-example plan that will work with any Talos node:
+example plan:
 
 ```yaml
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/upgrade.cattle.io/plan_v1.json
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
@@ -37,14 +44,13 @@ spec:
   upgrade:
     image: ghcr.io/jfroy/tnu:latest
     envs:
-      - name: NODE
+      - name: NODE_IP
         valueFrom:
           fieldRef:
-            fieldPath: spec.nodeName
+            fieldPath: status.hostIP
     args:
-      - --node=$(NODE)
+      - --node=$(NODE_IP)
       - --tag=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
-      # - --powercycle # Optional, Talos reboots via the kexec syscall by default
 ```
 
 Talos Node Updater needs a service account that can access the Talos API and read `Node` resources.
@@ -75,3 +81,9 @@ spec:
   roles:
     - os:admin
 ```
+
+### Force plan execution
+
+To force a plan execution, delete the `plan.upgrade.cattle.io/<plan name>` node label. This is
+necessary when using the example plan above after changing the install image in the machine config
+(for example to update the node's install schematic).
