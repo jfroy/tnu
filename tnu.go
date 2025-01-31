@@ -46,7 +46,7 @@ func NewTalosUpdater(nodeAddr, imageTag string, powercycle bool) (*TalosUpdater,
 }
 
 func (tu *TalosUpdater) fetchNodename(ctx context.Context) (string, error) {
-	r, err := tu.client.COSI.Get(ctx, resource.NewMetadata("k8s", "Nodenames.kubernetes.talos.dev", "node", resource.VersionUndefined))
+	r, err := tu.client.COSI.Get(ctx, resource.NewMetadata("k8s", "Nodenames.kubernetes.talos.dev", "nodename", resource.VersionUndefined))
 	if err != nil {
 		return "", err
 	}
