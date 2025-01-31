@@ -9,12 +9,9 @@ ENV CGO_ENABLED=0 \
     GOARM=${TARGETVARIANT} \
     GOOS=${TARGETOS}
 
-RUN apk add --no-cache build-base
-WORKDIR /app
-COPY . .
 RUN go build -a -ldflags "-s -w" -trimpath -o tnu .
 
 FROM alpine:latest
 RUN apk add --no-cache smartmontools
-COPY --from=builder /app/tnu /usr/local/bin/tnu
+COPY --from=builder /tnu /usr/local/bin/tnu
 ENTRYPOINT ["/usr/local/bin/tnu"]
