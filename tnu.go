@@ -24,6 +24,7 @@ type TalosUpdater struct {
 	nodeName   string
 	imageTag   string
 	powercycle bool
+	staged     bool
 	client     *client.Client
 }
 
