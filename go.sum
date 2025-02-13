@@ -149,6 +149,8 @@ github.com/siderolabs/go-api-signature v0.3.6 h1:wDIsXbpl7Oa/FXvxB6uz4VL9INA9fmr
 github.com/siderolabs/go-api-signature v0.3.6/go.mod h1:hoH13AfunHflxbXfh+NoploqV13ZTDfQ1mQJWNVSW9U=
 github.com/siderolabs/go-blockdevice/v2 v2.0.13 h1:N94eK+EFwnD+2kdNT38910Qlu+5+Z0WDODKbX7NXvPs=
 github.com/siderolabs/go-blockdevice/v2 v2.0.13/go.mod h1:74htzCV913UzaLZ4H+NBXkwWlYnBJIq5m/379ZEcu8w=
+github.com/siderolabs/go-blockdevice/v2 v2.0.14 h1:9Nu4ceeKpCSUhSub6RbxU2eat5IwAOR11Vdb5mPVASo=
+github.com/siderolabs/go-blockdevice/v2 v2.0.14/go.mod h1:74htzCV913UzaLZ4H+NBXkwWlYnBJIq5m/379ZEcu8w=
 github.com/siderolabs/go-pointer v1.0.0 h1:6TshPKep2doDQJAAtHUuHWXbca8ZfyRySjSBT/4GsMU=
 github.com/siderolabs/go-pointer v1.0.0/go.mod h1:HTRFUNYa3R+k0FFKNv11zgkaCLzEkWVzoYZ433P3kHc=
 github.com/siderolabs/go-retry v0.3.3 h1:zKV+S1vumtO72E6sYsLlmIdV/G/GcYSBLiEx/c9oCEg=
@@ -159,6 +161,8 @@ github.com/siderolabs/protoenc v0.2.1 h1:BqxEmeWQeMpNP3R6WrPqDatX8sM/r4t97OP8mFm
 github.com/siderolabs/protoenc v0.2.1/go.mod h1:StTHxjet1g11GpNAWiATgc8K0HMKiFSEVVFOa/H0otc=
 github.com/siderolabs/talos/pkg/machinery v1.9.3 h1:P3fb4UsmF3UEV2CDf100L7fVW+CBL5Yk6sEDis7uZr4=
 github.com/siderolabs/talos/pkg/machinery v1.9.3/go.mod h1:G4swVKn4vK3455ssgcPUrikPTypx6n+uaqv7GyBWXy4=
+github.com/siderolabs/talos/pkg/machinery v1.9.4 h1:ReKkU5gaf5h/cZde3ME45hREgOEWODTJYfBFeMhZGkA=
+github.com/siderolabs/talos/pkg/machinery v1.9.4/go.mod h1:yLkJ5ZvIpshDRhUVWjuSyTN6YAQiusSJF4/zj2/XfpY=
 github.com/spf13/pflag v1.0.5 h1:iy+VFUOCP1a+8yFto/drg2CJ5u0yRoB7fZw3DKv/JXA=
 github.com/spf13/pflag v1.0.5/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
 github.com/spf13/pflag v1.0.6 h1:jFzHGLGAlb3ruxLB8MhbI6A8+AQX/2eW4qeyNZXNp2o=
