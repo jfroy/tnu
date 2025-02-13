@@ -28,7 +28,7 @@ type TalosUpdater struct {
 	client     *client.Client
 }
 
-func NewTalosUpdater(ctx context.Context, imageTag string, powercycle bool) (*TalosUpdater, error) {
+func NewTalosUpdater(ctx context.Context, imageTag string, powercycle bool, staged bool) (*TalosUpdater, error) {
 	c, err := client.New(ctx, client.WithDefaultConfig())
 	if err != nil {
 		return nil, fmt.Errorf("failed to create Talos client: %w", err)
