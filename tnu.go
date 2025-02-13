@@ -164,6 +164,7 @@ func main() {
 		nodeAddr   string
 		imageTag   string
 		powercycle bool
+		staged     bool
 	)
 
 	flag.StringVar(&nodeAddr, "node", "", "The address of the node to update (required).")
