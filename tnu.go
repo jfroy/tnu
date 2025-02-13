@@ -35,6 +35,7 @@ func NewTalosUpdater(ctx context.Context, imageTag string, powercycle bool) (*Ta
 	return &TalosUpdater{
 		imageTag:   imageTag,
 		powercycle: powercycle,
+		staged:     staged,
 		client:     c,
 	}, nil
 }
@@ -134,7 +135,7 @@ func (tu *TalosUpdater) Update(ctx context.Context) (bool, error) {
 	uresp, err := tu.client.UpgradeWithOptions(ctx,
 		client.WithUpgradeImage(updateImage.String()),
 		client.WithUpgradePreserve(true),
-		client.WithUpgradeStage(true),
+		client.WithUpgradeStage(tu.staged),
 		client.WithUpgradeRebootMode(rebootMode),
 	)
 	if err != nil {
@@ -167,8 +168,9 @@ func main() {
 	flag.StringVar(&nodeAddr, "node", "", "The address of the node to update (required).")
 	flag.StringVar(&imageTag, "tag", "", "The image tag to update to (required).")
 	flag.BoolVar(&powercycle, "powercycle", false, "If set, the machine will reboot using powercycle instead of kexec.")
+	flag.BoolVar(&staged, "staged", false, "Perform the upgrade after a reboot")
 	flag.Usage = func() {
-		log.Printf("usage: tnu --node <node> --tag <tag> [--powercycle]\n%s", flag.CommandLine.FlagUsages())
+		log.Printf("usage: tnu --node <node> --tag <tag> [--powercycle] [--staged]\n%s", flag.CommandLine.FlagUsages())
 	}
 	flag.Parse()
 
@@ -177,7 +179,7 @@ func main() {
 	}
 
 	ctx := client.WithNode(context.Background(), nodeAddr)
-	updater, err := NewTalosUpdater(ctx, imageTag, powercycle)
+	updater, err := NewTalosUpdater(ctx, imageTag, powercycle, staged)
 	if err != nil {
 		log.Fatalf("failed to initialize updater: %v", err)
 	}
