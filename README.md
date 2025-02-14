@@ -34,9 +34,8 @@ spec:
   exclusive: true
   nodeSelector:
     matchExpressions:
-      - key: feature.node.kubernetes.io/system-os_release.ID
-        operator: In
-        values: ["talos"]
+      - key: kubernetes.io/os
+        operator: Exists
   tolerations:
     - key: node-role.kubernetes.io/control-plane
       operator: Exists
@@ -51,6 +50,16 @@ spec:
     args:
       - --node=$(NODE_IP)
       - --tag=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+```
+
+If the cluster has [Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery)
+installed, then a more specific `matchExpressions` can be used:
+
+```yaml
+    matchExpressions:
+      - key: feature.node.kubernetes.io/system-os_release.ID
+        operator: In
+        values: ["talos"]
 ```
 
 Talos Node Updater needs a service account that can access the Talos API and read `Node` resources.
