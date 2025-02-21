@@ -5,7 +5,7 @@ go 1.23.3
 toolchain go1.24.0
 
 require (
-	github.com/cosi-project/runtime v0.9.3
+	github.com/cosi-project/runtime v0.9.4
 	github.com/distribution/reference v0.6.0
 	github.com/siderolabs/talos/pkg/machinery v1.9.4
 	github.com/spf13/pflag v1.0.6
