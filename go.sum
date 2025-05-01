@@ -32,6 +32,8 @@ github.com/cosi-project/runtime v0.10.1 h1:s3LWW3UZgORKSINhNFd1G0RZevAatQ01+70cI
 github.com/cosi-project/runtime v0.10.1/go.mod h1:AdQvVoG6kfhGwWEqsFxndynrp1jr8KNoYj75dHJCxcE=
 github.com/cosi-project/runtime v0.10.2 h1:pKdMdmiZcMc2rCsykaNQAR4QqXVKmJf+n6+f0YjEeZM=
 github.com/cosi-project/runtime v0.10.2/go.mod h1:aK3oljZUJG6+ewkJRwY+VI9B40JmDp5++Ixri447TjE=
+github.com/cosi-project/runtime v0.10.3 h1:GxyhuNmtnZxm+3e4JS6ZKv+H0kqycTix7nW0f2wP7B4=
+github.com/cosi-project/runtime v0.10.3/go.mod h1:aK3oljZUJG6+ewkJRwY+VI9B40JmDp5++Ixri447TjE=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
