@@ -7,7 +7,7 @@ toolchain go1.24.3
 require (
 	github.com/cosi-project/runtime v0.10.6
 	github.com/distribution/reference v0.6.0
-	github.com/siderolabs/talos/pkg/machinery v1.10.0
+	github.com/siderolabs/talos/pkg/machinery v1.10.3
 	github.com/spf13/pflag v1.0.6
 	k8s.io/apimachinery v0.33.1
 	k8s.io/client-go v0.33.1
@@ -63,7 +63,7 @@ require (
 	github.com/planetscale/vtprotobuf v0.6.1-0.20241121165744-79df5c4772f2 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
 	github.com/sasha-s/go-deadlock v0.3.5 // indirect
-	github.com/siderolabs/crypto v0.5.1 // indirect
+	github.com/siderolabs/crypto v0.6.0 // indirect
 	github.com/siderolabs/gen v0.8.1 // indirect
 	github.com/siderolabs/go-api-signature v0.3.6 // indirect
 	github.com/siderolabs/go-blockdevice/v2 v2.0.14 // indirect

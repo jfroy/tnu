@@ -177,6 +177,8 @@ github.com/siderolabs/crypto v0.5.0 h1:+Sox0aYLCcD0PAH2cbEcx557zUrONLtuj1Ws+2MFX
 github.com/siderolabs/crypto v0.5.0/go.mod h1:hsR3tJ3aaeuhCChsLF4dBd9vlJVPvmhg4vvx2ez4aD4=
 github.com/siderolabs/crypto v0.5.1 h1:aZEUTZBoP8rH+0TqQAlUgazriPh89MrXf4R+th+m6ps=
 github.com/siderolabs/crypto v0.5.1/go.mod h1:7RHC7eUKBx6RLS2lDaNXrQ83zY9iPH/aQSTxk1I4/j4=
+github.com/siderolabs/crypto v0.6.0 h1:s33hNOneGhlxCI3fLKj2hgopeJkeRO7UYo3KL0HNVu4=
+github.com/siderolabs/crypto v0.6.0/go.mod h1:7RHC7eUKBx6RLS2lDaNXrQ83zY9iPH/aQSTxk1I4/j4=
 github.com/siderolabs/gen v0.8.0 h1:Pj93+hexkk5hQ7izjJ6YXnEWc8vlzOmDwFz13/VzS7o=
 github.com/siderolabs/gen v0.8.0/go.mod h1:an3a2Y53O7kUjnnK8Bfu3gewtvnIOu5RTU6HalFtXQQ=
 github.com/siderolabs/gen v0.8.1 h1:i26KvarXfkXYqsmIicjGr2DN68uuuKDse8J4Z2J0O/Y=
@@ -199,6 +201,8 @@ github.com/siderolabs/talos/pkg/machinery v1.9.5 h1:hH+f48MLNoDUeyny1zR/i2fLqReK
 github.com/siderolabs/talos/pkg/machinery v1.9.5/go.mod h1:yLkJ5ZvIpshDRhUVWjuSyTN6YAQiusSJF4/zj2/XfpY=
 github.com/siderolabs/talos/pkg/machinery v1.10.0 h1:XMwL9OBULHfGWcwMwPS9BhxPD1r/lcySbZspDLcX064=
 github.com/siderolabs/talos/pkg/machinery v1.10.0/go.mod h1:MVJs1hsKm7N2GkQVeByjoDoLJmU/VhQO0cLJRZPxlZk=
+github.com/siderolabs/talos/pkg/machinery v1.10.3 h1:otoAMrxvQBdkdQDPREJH+pa6bebuA7HK3Vb0qgpeIgA=
+github.com/siderolabs/talos/pkg/machinery v1.10.3/go.mod h1:gNv/CPK+2tRIhQvmd7h2bgoYGxzoHHWbaejXpNyZvDo=
 github.com/spf13/pflag v1.0.6 h1:jFzHGLGAlb3ruxLB8MhbI6A8+AQX/2eW4qeyNZXNp2o=
 github.com/spf13/pflag v1.0.6/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
 github.com/stoewer/go-strcase v1.3.0 h1:g0eASXYtp+yvN9fK8sH94oCIk0fau9uV1/ZdJ0AVEzs=
