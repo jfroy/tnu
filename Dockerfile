@@ -13,8 +13,8 @@ WORKDIR /app
 
 COPY go.mod go.sum ./
 RUN go mod download
-COPY tnu.go ./
-RUN go build -a -ldflags "-s -w" -trimpath -o tnu .
+COPY ./ ./
+RUN go build -a -ldflags "-s -w" -trimpath -o tnu cmd/tnu/tnu.go
 
 FROM alpine:latest
 WORKDIR /
