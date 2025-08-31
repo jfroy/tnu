@@ -52,7 +52,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - if: ${{ github.event_name == 'release' }}
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v3
         with:
           subject-name: ghcr.io/${{ github.repository }}
           subject-digest: ${{ steps.build-push.outputs.digest }}
