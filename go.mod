@@ -2,7 +2,7 @@ module tnu
 
 go 1.24.0
 
-toolchain go1.24.4
+toolchain go1.25.1
 
 require (
 	github.com/cosi-project/runtime v0.10.6
