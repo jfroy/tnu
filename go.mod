@@ -8,7 +8,7 @@ require (
 	github.com/cosi-project/runtime v1.11.0
 	github.com/distribution/reference v0.6.0
 	github.com/siderolabs/talos/pkg/machinery v1.10.4
-	github.com/spf13/pflag v1.0.6
+	github.com/spf13/pflag v1.0.10
 	k8s.io/api v0.34.0
 	k8s.io/apimachinery v0.34.0
 	k8s.io/client-go v0.34.0
