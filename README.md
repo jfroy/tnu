@@ -1,3 +1,7 @@
+# DEPRECATED
+
+Please use https://github.com/home-operations/tuppr.
+
 # Talos Node Updater (tnu)
 
 This is a Go program designed to run on a Talos node. It will determine if the node requires an
